@@ -11,4 +11,4 @@ plugins {
 }
 
 rootProject.name = "dbbakery"
-include("app", "domain", "utilities")
+include("app", "domain", "utilities", ":domain-implementations:file")
