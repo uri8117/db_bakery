@@ -1,6 +1,8 @@
 package uvic.teknos.dbbakery.file.models;
 
-public class Client implements cat.uvic.teknos.db.bakery.models.Client {
+import java.io.Serializable;
+
+public class Client implements cat.uvic.teknos.db.bakery.models.Client, Serializable {
     // Attributes of the class
     private int id;
     private String name;
