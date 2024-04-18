@@ -1,8 +1,7 @@
 package cat.uvic.teknos.dbbakery.file.repositories;
 
-import uvic.teknos.dbbakery.file.models.Supplier;
+import cat.uvic.teknos.dbbakery.file.models.Supplier;
 import org.junit.jupiter.api.Test;
-import uvic.teknos.dbbakery.file.repositories.SupplierRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,10 +11,10 @@ class SupplierRepositoryTest {
     void save() {
 
         // Define the path to the data file
-        var path = System.getProperty("user.dir") + "/src/main/resources/suppliers.dat/";
+        var path = System.getProperty("user.dir") + "/src/test/resources/suppliers.ser/";
 
         // Create an instance of the repository
-        var repository = new SupplierRepository();
+        var supplierRepository = new SupplierRepository(path);
 
         // Create a test supplier
         var supplier = new Supplier();
@@ -25,28 +24,28 @@ class SupplierRepositoryTest {
         supplier.setPhone("782-9383");
 
         // Save the supplier
-        repository.save(supplier);
+        supplierRepository.save(supplier);
 
         // Assert that the supplier ID is greater than 0 after saving
         assertTrue(supplier.getId() > 0);
 
         // Assert that the saved supplier can be retrieved
-        assertNotNull(repository.get(supplier.getId()));
+        assertNotNull(supplierRepository.get(supplier.getId()));
 
         // Load data from file
-        SupplierRepository.load();
+        supplierRepository.load();
 
         // Assert that the supplier can still be retrieved after loading data
-        assertNotNull(repository.get(supplier.getId()));
+        assertNotNull(supplierRepository.get(supplier.getId()));
     }
 
     @Test
     void update() {
         // Define the path to the data file
-        var path = System.getProperty("user.dir") + "/src/main/resources/suppliers.dat/";
+        var path = System.getProperty("user.dir") + "/src/test/resources/suppliers.ser/";
 
         // Create an instance of the repository
-        var repository = new SupplierRepository(/*path*/);
+        var repository = new SupplierRepository(path);
 
         // Create a test supplier
         var supplier = new Supplier();
@@ -77,10 +76,10 @@ class SupplierRepositoryTest {
     @Test
     void delete() {
         // Define the path to the data file
-        var path = System.getProperty("user.dir") + "/src/main/resources/clients.ser/";
+        var path = System.getProperty("user.dir") + "/src/test/resources/suppliers.ser/";
 
         // Create an instance of the repository
-        var repository = new SupplierRepository(/*path*/);
+        var repository = new SupplierRepository(path);
 
         // Create a test supplier
         var supplier = new Supplier();

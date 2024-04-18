@@ -1,8 +1,7 @@
 package cat.uvic.teknos.dbbakery.file.repositories;
 
 import org.junit.jupiter.api.Test;
-import uvic.teknos.dbbakery.file.models.Employee;
-import uvic.teknos.dbbakery.file.repositories.EmployeeRepository;
+import cat.uvic.teknos.dbbakery.file.models.Employee;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,10 +11,10 @@ public class EmployeeRepositoryTest {
     void save() {
 
         // Define the path to the data file
-        var path = System.getProperty("user.dir") + "/src/main/resources/employees.dat/";
+        var path = System.getProperty("user.dir") + "/src/test/resources/employees.ser/";
 
         // Create an instance of the repository
-        var repository = new EmployeeRepository(/*path*/);
+        var employeeRepository = new EmployeeRepository(path);
 
         // Create a test employee
         var employee = new Employee();
@@ -24,28 +23,28 @@ public class EmployeeRepositoryTest {
         employee.setPosition("Worked");
 
         // Save the employee
-        repository.save(employee);
+        employeeRepository.save(employee);
 
         // Assert that the employee ID is greater than 0 after saving
         assertTrue(employee.getId() > 0);
 
         // Assert that the saved employee can be retrieved
-        assertNotNull(repository.get(employee.getId()));
+        assertNotNull(employeeRepository.get(employee.getId()));
 
         // Load data from file
-        EmployeeRepository.load();
+        employeeRepository.load();
 
         // Assert that the employee can still be retrieved after loading data
-        assertNotNull(repository.get(employee.getId()));
+        assertNotNull(employeeRepository.get(employee.getId()));
     }
 
     @Test
     void update() {
         // Define the path to the data file
-        var path = System.getProperty("user.dir") + "/src/main/resources/employees.dat";
+        var path = System.getProperty("user.dir") + "/src/test/resources/employees.ser";
 
         // Create an instance of the repository
-        var repository = new EmployeeRepository(/*path*/);
+        var repository = new EmployeeRepository(path);
 
         // Create a test employee
         var employee = new Employee();
@@ -75,10 +74,10 @@ public class EmployeeRepositoryTest {
     @Test
     void delete() {
         // Define the path to the data file
-        var path = System.getProperty("user.dir") + "/src/main/resources/employees.dat/";
+        var path = System.getProperty("user.dir") + "/src/test/resources/employees.ser/";
 
         // Create an instance of the repository
-        var repository = new EmployeeRepository(/*path*/);
+        var repository = new EmployeeRepository(path);
 
         // Create a test employee
         var employee = new Employee();

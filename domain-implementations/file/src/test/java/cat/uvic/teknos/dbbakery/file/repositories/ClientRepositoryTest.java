@@ -1,8 +1,7 @@
 package cat.uvic.teknos.dbbakery.file.repositories;
 
-import uvic.teknos.dbbakery.file.models.Client;
+import cat.uvic.teknos.dbbakery.file.models.Client;
 import org.junit.jupiter.api.Test;
-import uvic.teknos.dbbakery.file.repositories.ClientRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,10 +11,10 @@ class ClientRepositoryTest {
     void save() {
 
         // Define the path to the data file
-        var path = System.getProperty("user.dir") + "/src/main/resources/clients.ser/";
+        var path = System.getProperty("user.dir") + "/src/test/resources/clients.ser/";
 
         // Create an instance of the repository
-        var repository = new ClientRepository(/*path*/);
+        var clientRepository = new ClientRepository(path);
 
         // Create a test client
         var client = new Client();
@@ -26,28 +25,28 @@ class ClientRepositoryTest {
         client.setPhone("555-1234");
 
         // Save the client
-        repository.save(client);
+        clientRepository.save(client);
 
         // Assert that the client ID is greater than 0 after saving
         assertTrue(client.getId() > 0);
 
         // Assert that the saved client can be retrieved
-        assertNotNull(repository.get(client.getId()));
+        assertNotNull(clientRepository.get(client.getId()));
 
         // Load data from file
-        ClientRepository.load();
+        clientRepository.load();
 
         // Assert that the client can still be retrieved after loading data
-        assertNotNull(repository.get(client.getId()));
+        assertNotNull(clientRepository.get(client.getId()));
     }
 
     @Test
     void update() {
         // Define the path to the data file
-        var path = System.getProperty("user.dir") + "/src/main/resources/clients.ser/";
+        var path = System.getProperty("user.dir") + "/src/test/resources/clients.ser/";
 
         // Create an instance of the repository
-        var repository = new ClientRepository(/*path*/);
+        var repository = new ClientRepository(path);
 
         // Create a test client
         var client = new Client();
@@ -79,10 +78,10 @@ class ClientRepositoryTest {
     @Test
     void delete() {
         // Define the path to the data file
-        var path = System.getProperty("user.dir") + "/src/main/resources/clients.ser/";
+        var path = System.getProperty("user.dir") + "/src/test/resources/clients.ser/";
 
         // Create an instance of the repository
-        var repository = new ClientRepository(/*path*/);
+        var repository = new ClientRepository(path);
 
         // Create a test client
         var client = new Client();
