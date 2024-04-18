@@ -1,8 +1,10 @@
 package uvic.teknos.dbbakery.file.repositories;
 
 import cat.uvic.teknos.db.bakery.models.Employee;
+
 import java.io.*;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,7 +29,7 @@ public class EmployeeRepository implements cat.uvic.teknos.db.bakery.repositorie
     }
 
     // Method to write employees to file
-    public static void write() {
+    public void write() {
         var currentDirectory = System.getProperty("user.dir") + "/src/main/resources/";
 
         try(var outputStream = new ObjectOutputStream(new FileOutputStream(currentDirectory + "employees.dat"))) {
@@ -49,12 +51,39 @@ public class EmployeeRepository implements cat.uvic.teknos.db.bakery.repositorie
         } else {
             employees.put(model.getId(), model);
         }
+        write();
+    }
+
+    public void update(){
+        var currentDirectory = System.getProperty("user.dir") + "/src/main/resources/";
+
+        try (var outputStream = new ObjectOutputStream(new FileOutputStream(currentDirectory + "employees.dat"))) {
+            outputStream.writeObject(employees);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Method to delete an employee
     @Override
     public void delete(Employee model) {
-        employees.remove(model.getId());
+        var currentDirectory = System.getProperty("user.dir") + "/src/main/resources/";
+
+        try (var outputStream = new ObjectOutputStream(new FileOutputStream(currentDirectory + "employees.dat"))) {
+
+            for (Iterator<Map.Entry<Integer, Employee>> iterator = employees.entrySet().iterator(); iterator.hasNext(); ) {
+                Map.Entry<Integer, Employee> entry = iterator.next();
+                if (entry.getValue().equals(model)) {
+                    iterator.remove();
+                    break;
+                }
+            }
+            outputStream.writeObject(employees);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Method to get an employee by id

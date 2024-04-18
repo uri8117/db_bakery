@@ -1,6 +1,8 @@
 package uvic.teknos.dbbakery.file.models;
 
-public class Supplier implements cat.uvic.teknos.db.bakery.models.Supplier {
+import java.io.Serializable;
+
+public class Supplier implements cat.uvic.teknos.db.bakery.models.Supplier, Serializable {
     // Attributes of the class
     private int id;
     private String name;

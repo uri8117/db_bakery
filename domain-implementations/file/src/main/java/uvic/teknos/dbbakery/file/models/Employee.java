@@ -1,6 +1,7 @@
 package uvic.teknos.dbbakery.file.models;
 
-public class Employee implements cat.uvic.teknos.db.bakery.models.Employee {
+import java.io.Serializable;
+public class Employee implements cat.uvic.teknos.db.bakery.models.Employee, Serializable {
     // Attributes of the class
     private int id;
     private String name;

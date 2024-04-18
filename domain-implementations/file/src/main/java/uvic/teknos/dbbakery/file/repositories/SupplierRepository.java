@@ -1,8 +1,11 @@
 package uvic.teknos.dbbakery.file.repositories;
 
+import cat.uvic.teknos.db.bakery.models.Client;
 import cat.uvic.teknos.db.bakery.models.Supplier;
+
 import java.io.*;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,7 +30,7 @@ public class SupplierRepository implements cat.uvic.teknos.db.bakery.repositorie
     }
 
     // Method to write suppliers to file
-    public static void write() {
+    public void write() {
         var currentDirectory = System.getProperty("user.dir") + "/src/main/resources/";
 
         try(var outputStream = new ObjectOutputStream(new FileOutputStream(currentDirectory + "suppliers.dat"))) {
@@ -49,12 +52,39 @@ public class SupplierRepository implements cat.uvic.teknos.db.bakery.repositorie
         } else {
             suppliers.put(model.getId(), model);
         }
+        write();
+    }
+
+    public void update(){
+        var currentDirectory = System.getProperty("user.dir") + "/src/main/resources/";
+
+        try (var outputStream = new ObjectOutputStream(new FileOutputStream(currentDirectory + "suppliers.dat"))) {
+            outputStream.writeObject(suppliers);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Method to delete a supplier
     @Override
     public void delete(Supplier model) {
-        suppliers.remove(model.getId());
+        var currentDirectory = System.getProperty("user.dir") + "/src/main/resources/";
+
+        try (var outputStream = new ObjectOutputStream(new FileOutputStream(currentDirectory + "suppliers.dat"))) {
+
+            for (Iterator<Map.Entry<Integer, Supplier>> iterator = suppliers.entrySet().iterator(); iterator.hasNext(); ) {
+                Map.Entry<Integer, Supplier> entry = iterator.next();
+                if (entry.getValue().equals(model)) {
+                    iterator.remove();
+                    break;
+                }
+            }
+            outputStream.writeObject(suppliers);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Method to get a supplier by id

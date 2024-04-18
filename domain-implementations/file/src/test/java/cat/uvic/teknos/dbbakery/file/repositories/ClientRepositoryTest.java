@@ -44,7 +44,7 @@ class ClientRepositoryTest {
     @Test
     void update() {
         // Define the path to the data file
-        var path = System.getProperty("user.dir") + "/src/main/resources/clients.dat";
+        var path = System.getProperty("user.dir") + "/src/main/resources/clients.ser/";
 
         // Create an instance of the repository
         var repository = new ClientRepository(/*path*/);
@@ -79,7 +79,7 @@ class ClientRepositoryTest {
     @Test
     void delete() {
         // Define the path to the data file
-        var path = System.getProperty("user.dir") + "/src/main/resources/clients.ser";
+        var path = System.getProperty("user.dir") + "/src/main/resources/clients.ser/";
 
         // Create an instance of the repository
         var repository = new ClientRepository(/*path*/);

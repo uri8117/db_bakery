@@ -91,7 +91,6 @@ public class ClientRepository implements cat.uvic.teknos.db.bakery.repositories.
                     break;
                 }
             }
-
             outputStream.writeObject(clients);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
