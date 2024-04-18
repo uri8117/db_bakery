@@ -77,7 +77,7 @@ class SupplierRepositoryTest {
     @Test
     void delete() {
         // Define the path to the data file
-        var path = System.getProperty("user.dir") + "/src/main/resources/clients.ser/";
+        var path = System.getProperty("user.dir") + "/src/main/resources/suppliers.dat/";
 
         // Create an instance of the repository
         var repository = new SupplierRepository(/*path*/);
